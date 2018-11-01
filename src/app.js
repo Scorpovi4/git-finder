@@ -35,12 +35,12 @@ document.getElementById('searchField').addEventListener('keyup', (e) => {
 				e.preventDefault();
 				let value = e.target.href;
 				let tempInput = document.createElement("input");
-				tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-				tempInput.value = 'git clone ' + value;
-				document.body.appendChild(tempInput);
-				tempInput.select();
-				document.execCommand("copy");
-				document.body.removeChild(tempInput);
+					tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+					tempInput.value = `git clone ${value}`;
+					document.body.appendChild(tempInput);
+					tempInput.select();
+					document.execCommand("copy");
+					document.body.removeChild(tempInput);
 
 				let alert = document.createElement('div');
 					alert.classList.add('alert', 'alert-danger');
