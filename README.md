@@ -1,1 +1,1 @@
-# Git-Finder
+Dev stack:
