@@ -50,7 +50,7 @@ export default class UI {
 							<div class="d-block p-2 bg-dark text-white">
 									<div class="row">
 										<div class="col-12 col-md-6">
-											<h6><a href="${data.repos[i].html_url}" class="text-white">${data.repos[i].name} / ${data.repos[i].full_name}</a></h6>
+											<h6><a target="_blank" href="${data.repos[i].html_url}" class="text-white">${data.repos[i].name}</a></h6>
 										</div>
 										<div class="col-12 col-md-6 text-sm-right">
 											<span class="badge badge-danger">${data.repos[i].language? data.repos[i].language : 'Unknown'}</span>
@@ -89,5 +89,30 @@ export default class UI {
 		this.container.classList.remove('border');
 		this.container.innerHTML = '';
 
+	}
+
+	preloader () {
+		// Preloader image
+		const preloader = document.createElement('img');
+		preloader.setAttribute('src', './assets/images/preloader.gif')
+		preloader.classList.add('d-block', 'm-auto');
+
+		this.container.appendChild(preloader);
+	}
+
+	alert (message, ancestor) {
+		let alert = document.createElement('div');
+					alert.classList.add('alert', 'alert-danger');
+					alert.setAttribute('role', 'alert');
+					alert.innerHTML = message;
+
+		let checker = ancestor.querySelector('.alert');
+
+		if(checker === null) {
+			ancestor.prepend(alert);
+		}
+		setTimeout(() => {
+			ancestor.removeChild(alert);
+		}, 3000);
 	}
 }

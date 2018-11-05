@@ -6,7 +6,7 @@ export default class Github {
 	constructor () {
 		this.client_id = '1daefedafc7766b1074a';
 		this.client_secret = '3b65902742463d05d5e15fd92fcc50f4e9a2b337';
-		this.token = '2933364196c2b40e2c4088cade1ffc9cc758dbf8';
+		this.token = '061f74ff11d71cbbe106922ca87a2e5cab620da3';
 	}
 
 	async connection (user) {
@@ -28,7 +28,7 @@ export default class Github {
 		const forkRepository = await fetch(url, {
 			method: 'POST',
 			headers: {
-				'Authorization': this.token,
+				'Authorization':`token ${this.token}`,
 				'Content-Type': 'application/json'
 			}
 		});

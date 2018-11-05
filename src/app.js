@@ -8,20 +8,30 @@ const github = new Github;
 const ui = new UI;
 
 let timeout_id;
+const searchField = document.getElementById('searchField');
+searchField.select();
+
 // Input field event
-document.getElementById('searchField').addEventListener('keyup', (e) => {
+searchField.addEventListener('keyup', (e) => {
 	clearTimeout(timeout_id);
+	// Preloader init
+	if(e.target.value !== '') {
+		ui.clear();
+		ui.preloader();
+	} else {
+		ui.clear();
+	}
 	// User's request
 	timeout_id = setTimeout(() => {
 		github.connection(e.target.value)
 		.then(result => {
-			if(e.target.value !== '') {
 				ui.render(result);
-			} else {
-				ui.clear();
-			}
 		})
-		.catch(error => ui.noUser());
+		.catch(error => {
+			if(e.target.value !== '') {
+				ui.noUser();
+			}
+		});
 
 		// Find ancestor from child
 		function findAncestor (el, cls) {
@@ -42,32 +52,20 @@ document.getElementById('searchField').addEventListener('keyup', (e) => {
 					document.execCommand("copy");
 					document.body.removeChild(tempInput);
 
-				let alert = document.createElement('div');
-					alert.classList.add('alert', 'alert-danger');
-					alert.setAttribute('role', 'alert');
-					alert.innerHTML = 'Copied to Clipboard';
-
-				setTimeout(() => {
-					ancestor.removeChild(alert);
-				}, 3000)
-
-				let ancestor = findAncestor (e.target, 'repo-container');
-
-				let checker = ancestor.querySelector('.alert');
-
-				if(checker === null) {
-					ancestor.prepend(alert);
-				}
+				const ancestor = findAncestor (e.target, 'repo-container');
+				ui.alert('Copied to Clipboard', ancestor);
 			}
 			// Fork repository
 			if(e.target.classList.contains('js-fork')) {
 				e.preventDefault();
 				github.fork(e.target.href)
 				.then(result => {
-					console.log(result);
+					const ancestor = findAncestor (e.target, 'repo-container');
+					ui.alert('Forked', ancestor);
 				})
 				.catch(error => error);
 			}
 		});
 	}, 500);
+
 });
