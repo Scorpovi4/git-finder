@@ -1,7 +1,5 @@
 "use strict";
 
-import Github from './github.js';
-
 // Rendering class
 export default class UI {
 
@@ -92,7 +90,6 @@ export default class UI {
 	}
 
 	preloader () {
-		// Preloader image
 		const preloader = document.createElement('img');
 		preloader.setAttribute('src', './assets/images/preloader.gif')
 		preloader.classList.add('d-block', 'm-auto');
@@ -110,9 +107,9 @@ export default class UI {
 
 		if(checker === null) {
 			ancestor.prepend(alert);
+			setTimeout(() => {
+				ancestor.removeChild(alert);
+			}, 3000);
 		}
-		setTimeout(() => {
-			ancestor.removeChild(alert);
-		}, 3000);
 	}
 }
