@@ -6,7 +6,7 @@ export default class Github {
 	constructor () {
 		this.client_id = '1daefedafc7766b1074a';
 		this.client_secret = '3b65902742463d05d5e15fd92fcc50f4e9a2b337';
-		this.token = 'a91b6042b5af043ae6b91fa2ad8c2560739e217b';
+		this.token = 'fa805a7b18259c6dcec5d776f982d4bf0794ae47';
 	}
 
 	async connection (user) {

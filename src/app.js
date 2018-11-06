@@ -58,10 +58,14 @@ searchField.addEventListener('keyup', (e) => {
 			// Fork repository
 			if(e.target.classList.contains('js-fork')) {
 				e.preventDefault();
+				const ancestor = findAncestor (e.target, 'repo-container');
 				github.fork(e.target.href)
 				.then(result => {
-					const ancestor = findAncestor (e.target, 'repo-container');
-					ui.alert('Forked', ancestor);
+					if (result.ok) {
+						ui.alert('Forked', ancestor);
+					} else {
+						ui.alert('Hasn\'t forked', ancestor)
+					}
 				})
 				.catch(error => error);
 			}
